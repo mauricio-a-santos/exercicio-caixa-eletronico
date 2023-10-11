@@ -1,5 +1,6 @@
 package banco;
 
+import banco.caixaEletronico.Gavetas;
 import banco.caixaEletronico.Opcoes;
 
 public class Principal {

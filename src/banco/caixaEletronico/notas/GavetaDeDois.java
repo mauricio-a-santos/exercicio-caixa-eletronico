@@ -6,6 +6,7 @@ public class GavetaDeDois extends Gavetas {
 
     int dois = 0;
     int contSaqDois = 0;
+    Gavetas gaveta = new Gavetas();
 
     public int getDois() {
         return dois;
@@ -23,12 +24,23 @@ public class GavetaDeDois extends Gavetas {
         this.contSaqDois = contSaqDois;
     }
 
-    /*public void sacar(int valor) {
-        valor -= 2;
-        this.setDois(this.getDois() + 1);
-        this.setContSaqDois(this.getContSaqDois() + 1);
-        super.setValorTotalGavetas(super.getValorTotalGavetas() - 2);
-    }*/
+    public int sacar(int valor) {
+       // while ((valor >= 2) && (this.getDois() < 3)) {
+
+           // valor -= 2;
+            gaveta.setValorTotalGavetas(gaveta.getValorTotalGavetas() - 2);
+            this.setDois(this.getDois() + 1);
+            this.setContSaqDois(this.getContSaqDois() + 1);
+
+
+      //  }
+        return valor;
+    }
+
+    public Gavetas retiraDoValorTotalDasGavetas(Gavetas gaveta) {
+        gaveta.setValorTotalGavetas(gaveta.getValorTotalGavetas() - 2);
+        return gaveta;
+    }
 
     public void printSingular(){
 

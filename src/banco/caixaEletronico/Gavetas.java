@@ -2,7 +2,7 @@ package banco.caixaEletronico;
 
 public class Gavetas {
 
-    private int valorTotalGavetas = 561;
+    private int valorTotalGavetas = 748;
 
     public int getValorTotalGavetas() {
         return valorTotalGavetas;

@@ -1,31 +1,50 @@
 package banco;
 
+import banco.caixaEletronico.Gavetas;
+import banco.caixaEletronico.notas.*;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class Conta {
+
     private String titular;
     private String tipo;
     private double saldo;
+
+   private Gavetas gaveta = new Gavetas();
+   private GavetaDeDois dois = new GavetaDeDois();
+    private GavetaDeCinco cinco = new GavetaDeCinco();
+    private GavetaDeDez dez = new GavetaDeDez();
+    private GavetaDeVinte vinte = new GavetaDeVinte();
+    private GavetaDeCinquenta cinquenta = new GavetaDeCinquenta();
+    private GavetaDeCem cem = new GavetaDeCem();
 
     public Conta(String titular, String tipo) {
         this.titular = titular;
         this.tipo = tipo;
     }
+
     public String getTitular() {
         return titular;
     }
+
     public String getTipo() {
         return tipo;
     }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
     public double getSaldo() {
         return saldo;
     }
+
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
     public void abrirConta() {
         if (this.getTipo().equals("cc")) {
             this.setTipo("Conta Corrente".toUpperCase());
@@ -35,7 +54,8 @@ public class Conta {
             this.setSaldo(1000.00);
         }
     }
-    public void boasVindas(){
+
+    public void boasVindas() {
         System.out.println("\n*** BEM-VINDO(A) AO BANCO MSA ***");
         System.out.println("DIGITE SEUS DADOS PARA ABERTURA DE CONTA");
         System.out.println("\nTITULAR DA CONTA: ");
@@ -43,7 +63,8 @@ public class Conta {
         System.out.println("DIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
         this.tipo = new Scanner(System.in).next();
     }
-    public void status(){
+
+    public void status() {
         System.out.println("**************************************************");
         System.out.println("=== " + this.getTipo() + " ABERTA COM SUCESSO! ===");
         System.out.printf(">> Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase() + " <<%n", this.getSaldo());
@@ -53,7 +74,8 @@ public class Conta {
         System.out.println("**************************************************\n");
     }
 
-    public void depositar(int valor){
+    public void depositar(int valor) {
+        System.out.println("DIGITE O VALOR DO DEPÓSITO: ");
         try {
             valor = new Scanner(System.in).nextInt();
             this.setSaldo(this.getSaldo() + valor);
@@ -64,4 +86,94 @@ public class Conta {
         }
     }
 
+    public void sacar(int valor) {
+        System.out.println("DIGITE O VALOR DO SAQUE: ");
+        valor = new Scanner(System.in).nextInt();
+        if ((valor <= this.getSaldo()) && (gaveta.getValorTotalGavetas() >= valor)) {
+            this.setSaldo(this.getSaldo() - valor);
+            //var valorRestante = cem.sacar(valor);
+            while ((valor >= 100) && (cem.getCem() < 4)) {
+
+                cem.sacar(valor);
+                valor -= 100;
+                cem.retiraDoValorTotalDasGavetas(gaveta);
+
+
+            }
+            while ((valor >= 50) && (cinquenta.getCinq() < 4)) {
+
+                cinquenta.sacar(valor);
+                valor -= 50;
+                cinquenta.retiraDoValorTotalDasGavetas(gaveta);
+            }
+            while ((valor >= 20) && (vinte.getVin() < 4)) {
+
+                vinte.sacar(valor);
+                valor -= 20;
+                vinte.retiraDoValorTotalDasGavetas(gaveta);
+            }
+            while ((valor >= 10) && (dez.getDez() < 4)) {
+
+                dez.sacar(valor);
+                valor -= 10;
+                dez.retiraDoValorTotalDasGavetas(gaveta);
+            }
+            while ((valor >= 5) && (cinco.getCinc() < 4)) {
+
+                cinco.sacar(valor);
+                valor -= 5;
+                cinco.retiraDoValorTotalDasGavetas(gaveta);
+            }
+            while ((valor >= 2) && (dois.getDois() < 4)) {
+
+                dois.sacar(valor);
+                valor -= 2;
+                dois.retiraDoValorTotalDasGavetas(gaveta);
+            }
+            System.out.println("Valor = " + valor);
+            System.out.println("Valor gavetas = " + gaveta.getValorTotalGavetas());
+
+            System.out.println("SAQUE REALIZADO COM SUCESSO!");
+            System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
+            System.out.println("VOCÊ RECEBEU:");
+            if ((cem.getCem() <= 1) && cem.getContSaqCem() == 1) {
+                cem.printSingular();
+            } else if ((cem.getCem() > 1) && cem.getContSaqCem() != 0) {
+                cem.printPlural();
+            }
+            if ((cinquenta.getCinq() <= 1) && cinquenta.getContSaqCinq() == 1) {
+                cinquenta.printSingular();
+            } else if ((cinquenta.getCinq() > 1) && cinquenta.getContSaqCinq() != 0) {
+                cinquenta.printPlural();
+            }
+            if ((vinte.getVin() <= 1) && vinte.getContSaqVin() == 1) {
+                vinte.printSingular();
+            } else if ((vinte.getVin() > 1) && vinte.getContSaqVin() != 0) {
+                vinte.printPlural();
+            }
+            if ((dez.getDez() <= 1) && dez.getContSaqDez() == 1) {
+                dez.printSingular();
+            } else if ((dez.getDez() > 1) && dez.getContSaqDez() != 0) {
+                dez.printPlural();
+            }
+            if ((cinco.getCinc() <= 1) && cinco.getContSaqCinc() == 1) {
+                cinco.printSingular();
+            } else if ((cinco.getCinc() > 1) && cinco.getContSaqCinc() != 0) {
+                cinco.printPlural();
+            }
+            if ((dois.getDois() <= 1) && dois.getContSaqDois() == 1) {
+                dois.printSingular();
+            } else if ((dois.getDois() > 1) && dois.getContSaqDois() != 0) {
+                dois.printPlural();
+            }
+
+            if (this.getSaldo() == 1) {
+                System.out.println("RESTA 1 REAL NA SUA CONTA!");
+            }
+            System.out.printf("SEU SALDO ATUAL É DE R$%.2f%n", this.getSaldo());
+        } else {
+            System.out.println("SALDO INSUFICIENTE!");
+        }
+
+    }
 }
