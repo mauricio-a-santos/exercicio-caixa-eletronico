@@ -7,6 +7,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Conta {
+    public Conta() {
+    }
 
     private String titular;
     private String tipo;
@@ -87,8 +89,6 @@ public class Conta {
     }
 
     public void sacar(int valor) {
-        System.out.println("DIGITE O VALOR DO SAQUE: ");
-        valor = new Scanner(System.in).nextInt();
         if ((valor <= this.getSaldo()) && (gaveta.getValorTotalGavetas() >= valor)) {
             this.setSaldo(this.getSaldo() - valor);
             //var valorRestante = cem.sacar(valor);
@@ -130,8 +130,6 @@ public class Conta {
                 valor -= 2;
                 dois.retiraDoValorTotalDasGavetas(gaveta);
             }
-            System.out.println("Valor = " + valor);
-            System.out.println("Valor gavetas = " + gaveta.getValorTotalGavetas());
 
             System.out.println("SAQUE REALIZADO COM SUCESSO!");
             System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
