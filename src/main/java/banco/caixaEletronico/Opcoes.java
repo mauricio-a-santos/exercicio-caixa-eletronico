@@ -14,13 +14,14 @@ public class Opcoes {
     public void operacoes(Conta conta) {
 
         String operacoes = """
-                **************************************************
-                Operações
-                                
-                1 - Consultar saldo
-                2 - Depósito
-                3 - SAQUE
-                4 - Sair
+                |--------------------------------------------------|
+                |          OPERAÇÕES DO CAIXA ELETRÔNICO           |
+                |--------------------------------------------------|
+                |               1 - Consultar saldo                |
+                |               2 - Depositar                      |
+                |               3 - sacar                          |
+                |               4 - Sair                           |
+                |--------------------------------------------------|
                 """;
         System.out.println(operacoes);
         System.out.println("DIGITE A OPÇÃO DESEJADA:");
@@ -28,7 +29,7 @@ public class Opcoes {
         while (opcao != 4) {
             switch (opcao) {
                 case 1:
-                    System.out.printf("SEU SALDO ATUAL É DE R$%.2f%n", conta.getSaldo());
+                    System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", conta.getSaldo());
                     break;
                 case 2:
                     conta.depositar(valor);
@@ -62,14 +63,16 @@ public class Opcoes {
     }
 
     private void opcoesDeSaque(Conta conta){
-        System.out.println("ESCOLHA UMA OPÇÃO DE SAQUE: ");
+        System.out.println("\n=============================================");
+        System.out.println("||       ESCOLHA UMA OPÇÃO DE SAQUE:       ||");
         String opcoesDeSaque = """
-                                ==================================================
-                                1 - R$10,00
-                                2 - R$20,00
-                                3 - R$50,00
-                                4 - R$100,00
-                                5 - OUTRO VALOR
+                                =============================================
+                                ||           1 - R$10,00                   ||
+                                ||           2 - R$20,00                   ||
+                                ||           3 - R$50,00                   ||
+                                ||           4 - R$100,00                  ||
+                                ||           5 - OUTRO VALOR               ||
+                                =============================================             
                                 """;
         System.out.println(opcoesDeSaque);
         switch (escolha = new Scanner(System.in).nextInt()) {

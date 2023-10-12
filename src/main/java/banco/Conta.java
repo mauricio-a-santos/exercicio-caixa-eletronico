@@ -58,31 +58,33 @@ public class Conta {
     }
 
     public void boasVindas() {
-        System.out.println("\n*** BEM-VINDO(A) AO BANCO MSA ***");
+        System.out.println("\n-------------------------------------");
+        System.out.println("| *** BEM-VINDO(A) AO BANCO MSA *** |");
+        System.out.println("-------------------------------------\n");
         System.out.println("DIGITE SEUS DADOS PARA ABERTURA DE CONTA");
         System.out.println("\nTITULAR DA CONTA: ");
         this.titular = new Scanner(System.in).nextLine();
-        System.out.println("DIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
+        System.out.println("\nDIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
         this.tipo = new Scanner(System.in).next();
     }
 
     public void status() {
-        System.out.println("**************************************************");
+        System.out.println("\n*****************************************************************");
         System.out.println("=== " + this.getTipo() + " ABERTA COM SUCESSO! ===");
         System.out.printf(">> Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase() + " <<%n", this.getSaldo());
         System.out.println("TITULAR DA CONTA: " + this.getTitular());
         System.out.println("TIPO DA CONTA: " + this.getTipo());
         System.out.printf("SALDO: R$%.2f%n", this.getSaldo());
-        System.out.println("**************************************************\n");
+        System.out.println("*****************************************************************\n");
     }
 
     public void depositar(int valor) {
-        System.out.println("DIGITE O VALOR DO DEPÓSITO: ");
+        System.out.println("\nDIGITE O VALOR DO DEPÓSITO: ");
         try {
             valor = new Scanner(System.in).nextInt();
             this.setSaldo(this.getSaldo() + valor);
             System.out.println("\nDEPÓSITO REALIZADO COM SUCESSO!");
-            System.out.printf("SEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
+            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
         } catch (InputMismatchException e) {
             System.out.println("\n>> ERRO! APENAS NÚMEROS INTEIROS SÃO VÁLIDOS! <<\n");
         }
@@ -131,9 +133,9 @@ public class Conta {
                 dois.retiraDoValorTotalDasGavetas(gaveta);
             }
 
-            System.out.println("SAQUE REALIZADO COM SUCESSO!");
-            System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
-            System.out.println("VOCÊ RECEBEU:");
+            System.out.println("\nSAQUE REALIZADO COM SUCESSO!");
+            //System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
+            System.out.println("\nVOCÊ RECEBEU:");
             if ((cem.getCem() <= 1) && cem.getContSaqCem() == 1) {
                 cem.printSingular();
             } else if ((cem.getCem() > 1) && cem.getContSaqCem() != 0) {
@@ -166,11 +168,11 @@ public class Conta {
             }
 
             if (this.getSaldo() == 1) {
-                System.out.println("RESTA 1 REAL NA SUA CONTA!");
+                System.out.println("\nRESTA 1 REAL NA SUA CONTA!\n");
             }
-            System.out.printf("SEU SALDO ATUAL É DE R$%.2f%n", this.getSaldo());
+            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
         } else {
-            System.out.println("SALDO INSUFICIENTE!");
+            System.out.println("\nSALDO INSUFICIENTE!\n");
         }
 
     }
