@@ -64,14 +64,23 @@ public class Conta {
         System.out.println("DIGITE SEUS DADOS PARA ABERTURA DE CONTA");
         System.out.println("\nTITULAR DA CONTA: ");
         this.titular = new Scanner(System.in).nextLine();
+        while (this.getTitular().length() > 30){
+            System.out.println("Favor, digite um nome válido!!");
+            this.titular = new Scanner(System.in).nextLine();
+        }
         System.out.println("\nDIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
-        this.tipo = new Scanner(System.in).next();
+        this.tipo = new Scanner(System.in).next().toLowerCase();
+        while (!this.getTipo().equals("cc") && !this.getTipo().equals("cp")){
+            System.out.println("DÍGITO INVÁLIDO!");
+            System.out.println("\nDIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
+            this.tipo = new Scanner(System.in).next().toLowerCase();
+        }
     }
 
     public void status() {
         System.out.println("\n*****************************************************************");
         System.out.println("=== " + this.getTipo() + " ABERTA COM SUCESSO! ===");
-        System.out.printf(">> Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase() + " <<%n", this.getSaldo());
+        System.out.printf(">> Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase() + " <<%n\n", this.getSaldo());
         System.out.println("TITULAR DA CONTA: " + this.getTitular());
         System.out.println("TIPO DA CONTA: " + this.getTipo());
         System.out.printf("SALDO: R$%.2f%n", this.getSaldo());
