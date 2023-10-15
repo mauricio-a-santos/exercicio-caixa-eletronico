@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class Conta {
     public Conta() {
     }
@@ -15,8 +17,8 @@ public class Conta {
     private String tipo;
     private double saldo;
 
-   private final Gavetas gaveta = new Gavetas();
-   private final GavetaDeDois dois = new GavetaDeDois();
+    private final Gavetas gaveta = new Gavetas();
+    private final GavetaDeDois dois = new GavetaDeDois();
     private final GavetaDeCinco cinco = new GavetaDeCinco();
     private final GavetaDeDez dez = new GavetaDeDez();
     private final GavetaDeVinte vinte = new GavetaDeVinte();
@@ -24,7 +26,7 @@ public class Conta {
     private final GavetaDeCem cem = new GavetaDeCem();
 
 
-       public String getTitular() {
+    public String getTitular() {
         return titular;
     }
 
@@ -55,43 +57,103 @@ public class Conta {
     }
 
     public void boasVindas() {
-        System.out.println("\n-------------------------------------");
-        System.out.println("| *** BEM-VINDO(A) AO BANCO MSA *** |");
-        System.out.println("-------------------------------------\n");
-        System.out.println("DIGITE SEUS DADOS PARA ABERTURA DE CONTA");
+        showMessageDialog(null,
+                "DIGITE SEUS DADOS PARA ABERTURA DE CONTA",
+                " SEJA BEM-VINDO(A) AO BANCO MSA ",
+                JOptionPane.INFORMATION_MESSAGE);
 
-        this.titular = JOptionPane.showInputDialog("\nTITULAR DA CONTA: ");
-        while (this.getTitular().length() > 30){
-            System.out.println("Favor, digite um nome válido!!");
-            this.titular = JOptionPane.showInputDialog("\nTITULAR DA CONTA: ");
+        this.titular = JOptionPane.showInputDialog(null,
+                "TITULAR DA CONTA: ",
+                "BANCO MSA",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        try {
+            while (this.getTitular().length() > 30) {
+                showMessageDialog(null,
+                        "Favor, digite um nome válido!!",
+                        "ERRO!",
+                        JOptionPane.ERROR_MESSAGE);
+                this.titular = JOptionPane.showInputDialog(null,
+                        "TITULAR DA CONTA: ",
+                        "BANCO MSA",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NullPointerException titularVazio) {
+            showMessageDialog(null,
+                    "OPERAÇÃO CANCELADA!!",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
         }
-        this.tipo  = JOptionPane.showInputDialog("DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ").toLowerCase();
-        while (!this.getTipo().equals("cc") && !this.getTipo().equals("cp")){
-            System.out.println("DÍGITO INVÁLIDO!");
-            this.tipo  = JOptionPane.showInputDialog("DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ").toLowerCase();
+        try {
+            this.tipo = JOptionPane.showInputDialog(null,
+                    "DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE).toLowerCase();
+
+            while (!this.getTipo().equals("cc") && !this.getTipo().equals("cp")) {
+                showMessageDialog(null,
+                        "DÍGITO INVÁLIDO!",
+                        "ERRO!",
+                        JOptionPane.ERROR_MESSAGE);
+                this.tipo = JOptionPane.showInputDialog(null,
+                        "DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ",
+                        "BANCO MSA",
+                        JOptionPane.INFORMATION_MESSAGE).toLowerCase();
+            }
+        } catch (NullPointerException tipoVazio) {
+            showMessageDialog(null,
+                    "OPERAÇÃO CANCELADA!!",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
         }
     }
 
     public void status() {
-        System.out.println("\n*****************************************************************");
-        System.out.println("=== " + this.getTipo() + " ABERTA COM SUCESSO! ===");
-        System.out.printf(">> Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase() + " <<%n\n", this.getSaldo());
-        System.out.println("TITULAR DA CONTA: " + this.getTitular());
-        System.out.println("TIPO DA CONTA: " + this.getTipo());
-        System.out.printf("SALDO: R$%.2f%n", this.getSaldo());
-        System.out.println("*****************************************************************\n");
+        showMessageDialog(null,
+                String.format("Você recebeu um presente de R$%.2f na sua " + this.getTipo().toLowerCase(), this.getSaldo()),
+                this.getTipo() + " ABERTA COM SUCESSO!",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        showMessageDialog(null,
+                String.format("TITULAR: " + this.getTitular() +
+                        "\nTIPO DE CONTA: " + this.getTipo().toLowerCase() +
+                        "\nSALDO: R$%.2f%n ", this.getSaldo()),
+                "STATUS DA CONTA",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void depositar(int valor) {
-        System.out.println("\nDIGITE O VALOR DO DEPÓSITO: ");
+
         try {
-            valor = new Scanner(System.in).nextInt();
+            valor = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "DIGITE O VALOR DO DEPÓSITO",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE));
             this.setSaldo(this.getSaldo() + valor);
-            System.out.println("\nDEPÓSITO REALIZADO COM SUCESSO!");
-            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
-        } catch (InputMismatchException e) {
-            System.out.println("\n>> ERRO! APENAS NÚMEROS INTEIROS SÃO VÁLIDOS! <<\n");
+            JOptionPane.showMessageDialog(null,
+                    String.format("SEU SALDO ATUAL É DE R$%.2f", this.getSaldo()),
+                    "DEPÓSITO REALIZADO COM SUCESSO!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }catch (NumberFormatException n){
+            JOptionPane.showMessageDialog(null,
+                    "APENAS NÚMEROS INTEIROS SÃO VÁLIDOS",
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
         }
+
+
+
+//        System.out.println("\nDIGITE O VALOR DO DEPÓSITO: ");
+//        try {
+//            valor = new Scanner(System.in).nextInt();
+//            this.setSaldo(this.getSaldo() + valor);
+//            System.out.println("\nDEPÓSITO REALIZADO COM SUCESSO!");
+//            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
+//        } catch (InputMismatchException e) {
+//            System.out.println("\n>> ERRO! APENAS NÚMEROS INTEIROS SÃO VÁLIDOS! <<\n");
+//        }
     }
 
     public void sacar(int valor) {
@@ -137,9 +199,9 @@ public class Conta {
                 dois.retiraDoValorTotalDasGavetas(gaveta);
             }
 
-            System.out.println("\nSAQUE REALIZADO COM SUCESSO!");
-            //System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
-            System.out.println("\nVOCÊ RECEBEU:");
+//            System.out.println("\nSAQUE REALIZADO COM SUCESSO!");
+//            //System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
+//            System.out.println("\nVOCÊ RECEBEU:");
             if ((cem.getCem() <= 1) && cem.getContSaqCem() == 1) {
                 cem.printSingular();
             } else if ((cem.getCem() > 1) && cem.getContSaqCem() != 0) {
@@ -172,11 +234,20 @@ public class Conta {
             }
 
             if (this.getSaldo() == 1) {
-                System.out.println("\nRESTA 1 REAL NA SUA CONTA!\n");
+                JOptionPane.showMessageDialog(null,
+                        "RESTA 1 REAL NA SUA CONTA!",
+                        "BANCO MSA",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
+            JOptionPane.showMessageDialog(null,
+                    String.format("SEU SALDO ATUAL É DE R$%.2f", this.getSaldo()),
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
-            System.out.println("\nSALDO INSUFICIENTE!\n");
+            JOptionPane.showMessageDialog(null,
+                    "SALDO INSUFICIENTE!",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

@@ -2,6 +2,8 @@ package banco.caixaEletronico.notas;
 
 import banco.caixaEletronico.Gavetas;
 
+import javax.swing.*;
+
 public class GavetaDeCem extends Gavetas {
 
     private int cem = 0;
@@ -44,17 +46,19 @@ public class GavetaDeCem extends Gavetas {
     }
 
     public void printSingular() {
-
-        System.out.println(this.getContSaqCem() + " NOTA DE 100 REAIS");
+        JOptionPane.showMessageDialog(null,
+                "VOCÊ RECEBEU " + this.getContSaqCem() + " NOTA DE 100 REAIS",
+                "SAQUE REALIZADO COM SUCESSO",
+                JOptionPane.INFORMATION_MESSAGE);
         this.setContSaqCem(0);
-
     }
 
     public void printPlural() {
-
-        System.out.println(this.getContSaqCem() + " NOTAS DE 100 REAIS");
+        JOptionPane.showMessageDialog(null,
+                "VOCÊ RECEBEU " + this.getContSaqCem() + " NOTAS" + " DE 100 REAIS",
+                "SAQUE REALIZADO COM SUCESSO",
+                JOptionPane.INFORMATION_MESSAGE);
         this.setContSaqCem(0);
-
     }
 
 }

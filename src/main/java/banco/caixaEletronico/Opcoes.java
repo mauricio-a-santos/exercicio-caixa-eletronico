@@ -2,6 +2,7 @@ package banco.caixaEletronico;
 
 import banco.Conta;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,42 +12,61 @@ public class Opcoes {
     Conta conta = new Conta();
 
     public void operacoes(Conta conta) {
+        try {
+            opcao = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    """
+                            DIGITE A OPÇÃO DESEJADA:                
+                            1 - Consultar saldo
+                            2 - Depositar
+                            3 - sacar
+                            4 - Sair 
+                            """,
+                    "OPERAÇÕES DO CAIXA ELETRÔNICO",
+                    JOptionPane.INFORMATION_MESSAGE));
 
-        String operacoes = """
-                |--------------------------------------------------|
-                |          OPERAÇÕES DO CAIXA ELETRÔNICO           |
-                |--------------------------------------------------|
-                |               1 - Consultar saldo                |
-                |               2 - Depositar                      |
-                |               3 - sacar                          |
-                |               4 - Sair                           |
-                |--------------------------------------------------|
-                """;
-        System.out.println(operacoes);
-        System.out.println("DIGITE A OPÇÃO DESEJADA:");
-        telaInicial();
-        while (opcao != 4) {
-            switch (opcao) {
-                case 1:
-                    System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", conta.getSaldo());
-                    break;
-                case 2:
-                    conta.depositar(valor);
-                    break;
-                case 3:
-                    opcoesDeSaque(conta);
-                    break;
-                default:
-                    System.out.println("DIGITO INCORRETO!");
+            while (opcao != 4) {
+                switch (opcao) {
+                    case 1:
+                        JOptionPane.showMessageDialog(null,
+                                String.format("SEU SALDO ATUAL É DE R$%.2f", conta.getSaldo()),
+                                "BANCO MSA",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    case 2:
+                        conta.depositar(valor);
+                        break;
+                    case 3:
+                        opcoesDeSaque(conta);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null,
+                                "OPÇÃO INVÁLIDA!",
+                                "ERRO!",
+                                JOptionPane.ERROR_MESSAGE);
+                }
+
+                opcao = Integer.parseInt(JOptionPane.showInputDialog(null,
+                        """
+                                DIGITE A OPÇÃO DESEJADA:                
+                                1 - Consultar saldo
+                                2 - Depositar
+                                3 - sacar
+                                4 - Sair 
+                                """,
+                        "OPERAÇÕES DO CAIXA ELETRÔNICO",
+                        JOptionPane.INFORMATION_MESSAGE));
+
             }
-
-            System.out.println(operacoes);
-            System.out.println("DIGITE A OPÇÃO DESEJADA:");
-            telaInicial();
-
+            JOptionPane.showMessageDialog(null,
+                    "OPERAÇÃO FINALIZADA COM SUCESSO",
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException n) {
+            JOptionPane.showMessageDialog(null,
+                    "DÍGITO INVÁLIDO!",
+                    "ERRO!",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("\nOPERAÇÃO FINALIZADA COM SUCESSO\n");
-
     }
 
     public void setOpcao(int opcao) {
@@ -61,45 +81,70 @@ public class Opcoes {
 
     }
 
-    private void opcoesDeSaque(Conta conta){
-        System.out.println("\n=============================================");
-        System.out.println("||       ESCOLHA UMA OPÇÃO DE SAQUE:       ||");
-        String opcoesDeSaque = """
-                                =============================================
-                                ||           1 - R$10,00                   ||
-                                ||           2 - R$20,00                   ||
-                                ||           3 - R$50,00                   ||
-                                ||           4 - R$100,00                  ||
-                                ||           5 - OUTRO VALOR               ||
-                                =============================================             
-                                """;
-        System.out.println(opcoesDeSaque);
-        int escolha;
-        switch (escolha = new Scanner(System.in).nextInt()) {
-            case 1:
-                valor = 10;
-                conta.sacar(valor);
-                break;
-            case 2:
-                valor = 20;
-                conta.sacar(valor);
-                break;
-            case 3:
-                valor = 50;
-                conta.sacar(valor);
-                break;
-            case 4:
-                valor = 100;
-                conta.sacar(valor);
-                break;
-            case 5:
-                System.out.println("DIGITE O VALOR DO SAQUE: ");
-                valor = new Scanner(System.in).nextInt();
-                conta.sacar(valor);
-                break;
-            default:
-                System.out.println("OPÇÃO INVÁLIDA!\n");
+    private void opcoesDeSaque(Conta conta) {
+
+        try {
+            int escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    """
+                            ESCOLHA UMA OPÇÃO DE SAQUE:                
+                            1 - R$10,00
+                            2 - R$20,00
+                            3 - R$50,00
+                            4 - R$100,00
+                            5 - OUTRO VALOR 
+                            """,
+                    "BANCO MSA",
+                    JOptionPane.INFORMATION_MESSAGE));
+
+            switch (escolha) {// = new Scanner(System.in).nextInt()) {
+                case 1:
+                    valor = 10;
+                    conta.sacar(valor);
+                    break;
+                case 2:
+                    valor = 20;
+                    conta.sacar(valor);
+                    break;
+                case 3:
+                    valor = 50;
+                    conta.sacar(valor);
+                    break;
+                case 4:
+                    valor = 100;
+                    conta.sacar(valor);
+                    break;
+                case 5:
+                    valor = Integer.parseInt(JOptionPane.showInputDialog(null,
+                            "DIGITE O VALOR DO SAQUE",
+                            "BANCO MSA",
+                            JOptionPane.INFORMATION_MESSAGE));
+                    conta.sacar(valor);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null,
+                            "OPÇÃO INVÁLIDA!",
+                            "BANCO MSA",
+                            JOptionPane.ERROR_MESSAGE);
+
+                    escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
+                            """
+                                    ESCOLHA UMA OPÇÃO DE SAQUE:                
+                                    1 - R$10,00
+                                    2 - R$20,00
+                                    3 - R$50,00
+                                    4 - R$100,00
+                                    5 - OUTRO VALOR 
+                                    """,
+                            "BANCO MSA",
+                            JOptionPane.INFORMATION_MESSAGE));
+            }
+        } catch (NumberFormatException n) {
+            JOptionPane.showMessageDialog(null,
+                    "DÍGITO INVÁLIDO!",
+                    "ERRO!",
+                    JOptionPane.ERROR_MESSAGE);
         }
+
 
     }
 

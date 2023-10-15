@@ -2,6 +2,8 @@ package banco.caixaEletronico.notas;
 
 import banco.caixaEletronico.Gavetas;
 
+import javax.swing.*;
+
 public class GavetaDeDois extends Gavetas {
 
     int dois = 0;
@@ -43,16 +45,18 @@ public class GavetaDeDois extends Gavetas {
     }
 
     public void printSingular(){
-
-        System.out.println(this.getContSaqDois() + " NOTA DE 2 REAIS");
+        JOptionPane.showMessageDialog(null,
+                "VOCÊ RECEBEU " + this.getContSaqDois() + " NOTA" + " DE 2 REAIS",
+                "SAQUE REALIZADO COM SUCESSO",
+                JOptionPane.INFORMATION_MESSAGE);
         this.setContSaqDois(0);
-
     }
 
     public void printPlural(){
-
-        System.out.println(this.getContSaqDois() + " NOTAS DE 2 REAIS");
+        JOptionPane.showMessageDialog(null,
+                "VOCÊ RECEBEU " + this.getContSaqDois() + " NOTAS" + " DE 2 REAIS",
+                "SAQUE REALIZADO COM SUCESSO",
+                JOptionPane.INFORMATION_MESSAGE);
         this.setContSaqDois(0);
-
     }
 }
