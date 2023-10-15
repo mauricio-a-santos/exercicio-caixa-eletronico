@@ -3,6 +3,7 @@ package banco;
 import banco.caixaEletronico.Gavetas;
 import banco.caixaEletronico.notas.*;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,20 +15,16 @@ public class Conta {
     private String tipo;
     private double saldo;
 
-   private Gavetas gaveta = new Gavetas();
-   private GavetaDeDois dois = new GavetaDeDois();
-    private GavetaDeCinco cinco = new GavetaDeCinco();
-    private GavetaDeDez dez = new GavetaDeDez();
-    private GavetaDeVinte vinte = new GavetaDeVinte();
-    private GavetaDeCinquenta cinquenta = new GavetaDeCinquenta();
-    private GavetaDeCem cem = new GavetaDeCem();
+   private final Gavetas gaveta = new Gavetas();
+   private final GavetaDeDois dois = new GavetaDeDois();
+    private final GavetaDeCinco cinco = new GavetaDeCinco();
+    private final GavetaDeDez dez = new GavetaDeDez();
+    private final GavetaDeVinte vinte = new GavetaDeVinte();
+    private final GavetaDeCinquenta cinquenta = new GavetaDeCinquenta();
+    private final GavetaDeCem cem = new GavetaDeCem();
 
-    public Conta(String titular, String tipo) {
-        this.titular = titular;
-        this.tipo = tipo;
-    }
 
-    public String getTitular() {
+       public String getTitular() {
         return titular;
     }
 
@@ -62,18 +59,16 @@ public class Conta {
         System.out.println("| *** BEM-VINDO(A) AO BANCO MSA *** |");
         System.out.println("-------------------------------------\n");
         System.out.println("DIGITE SEUS DADOS PARA ABERTURA DE CONTA");
-        System.out.println("\nTITULAR DA CONTA: ");
-        this.titular = new Scanner(System.in).nextLine();
+
+        this.titular = JOptionPane.showInputDialog("\nTITULAR DA CONTA: ");
         while (this.getTitular().length() > 30){
             System.out.println("Favor, digite um nome válido!!");
-            this.titular = new Scanner(System.in).nextLine();
+            this.titular = JOptionPane.showInputDialog("\nTITULAR DA CONTA: ");
         }
-        System.out.println("\nDIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
-        this.tipo = new Scanner(System.in).next().toLowerCase();
+        this.tipo  = JOptionPane.showInputDialog("DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ").toLowerCase();
         while (!this.getTipo().equals("cc") && !this.getTipo().equals("cp")){
             System.out.println("DÍGITO INVÁLIDO!");
-            System.out.println("\nDIGITE 'cc' PARA CONTA CORRENTE OU 'cp' PARA CONTA POUPANÇA: ");
-            this.tipo = new Scanner(System.in).next().toLowerCase();
+            this.tipo  = JOptionPane.showInputDialog("DIGITE [cc] PARA CONTA CORRENTE OU [cp] PARA CONTA POUPANÇA: ").toLowerCase();
         }
     }
 

@@ -27,7 +27,7 @@ public class GavetaDeCem extends Gavetas {
     }
 
 
-    public int sacar(int valor) {
+    public void sacar(int valor) {
         // while ((valor >= 100) && (this.getCem() < 3)) {
 
         //  valor -= 100;
@@ -37,12 +37,10 @@ public class GavetaDeCem extends Gavetas {
 
 
         // }
-        return valor;
     }
 
-    public Gavetas retiraDoValorTotalDasGavetas(Gavetas gaveta) {
+    public void retiraDoValorTotalDasGavetas(Gavetas gaveta) {
         gaveta.setValorTotalGavetas(gaveta.getValorTotalGavetas() - 100);
-        return gaveta;
     }
 
     public void printSingular() {

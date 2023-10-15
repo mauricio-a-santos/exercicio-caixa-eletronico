@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Opcoes {
     private int opcao;
     private int valor;
-    private int escolha;
     Conta conta = new Conta();
 
     public void operacoes(Conta conta) {
@@ -46,7 +45,7 @@ public class Opcoes {
             telaInicial();
 
         }
-        System.out.println("OPERAÇÃO FINALIZADA COM SUCESSO");
+        System.out.println("\nOPERAÇÃO FINALIZADA COM SUCESSO\n");
 
     }
 
@@ -75,6 +74,7 @@ public class Opcoes {
                                 =============================================             
                                 """;
         System.out.println(opcoesDeSaque);
+        int escolha;
         switch (escolha = new Scanner(System.in).nextInt()) {
             case 1:
                 valor = 10;
@@ -97,6 +97,8 @@ public class Opcoes {
                 valor = new Scanner(System.in).nextInt();
                 conta.sacar(valor);
                 break;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!\n");
         }
 
     }
