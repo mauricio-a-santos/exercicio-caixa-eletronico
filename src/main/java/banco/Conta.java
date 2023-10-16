@@ -2,11 +2,7 @@ package banco;
 
 import banco.caixaEletronico.Gavetas;
 import banco.caixaEletronico.notas.*;
-
 import javax.swing.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Conta {
@@ -125,7 +121,6 @@ public class Conta {
     }
 
     public void depositar(int valor) {
-
         try {
             valor = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "DIGITE O VALOR DO DEPÓSITO",
@@ -143,95 +138,15 @@ public class Conta {
                     JOptionPane.ERROR_MESSAGE);
         }
 
-
-
-//        System.out.println("\nDIGITE O VALOR DO DEPÓSITO: ");
-//        try {
-//            valor = new Scanner(System.in).nextInt();
-//            this.setSaldo(this.getSaldo() + valor);
-//            System.out.println("\nDEPÓSITO REALIZADO COM SUCESSO!");
-//            System.out.printf("\nSEU SALDO ATUAL É DE R$%.2f%n\n", this.getSaldo());
-//        } catch (InputMismatchException e) {
-//            System.out.println("\n>> ERRO! APENAS NÚMEROS INTEIROS SÃO VÁLIDOS! <<\n");
-//        }
     }
 
     public void sacar(int valor) {
+
         if ((valor <= this.getSaldo()) && (gaveta.getValorTotalGavetas() >= valor)) {
             this.setSaldo(this.getSaldo() - valor);
-            //var valorRestante = cem.sacar(valor);
-            while ((valor >= 100) && (cem.getCem() < 4)) {
 
-                cem.sacar(valor);
-                valor -= 100;
-                cem.retiraDoValorTotalDasGavetas(gaveta);
-
-
-            }
-            while ((valor >= 50) && (cinquenta.getCinq() < 4)) {
-
-                cinquenta.sacar(valor);
-                valor -= 50;
-                cinquenta.retiraDoValorTotalDasGavetas(gaveta);
-            }
-            while ((valor >= 20) && (vinte.getVin() < 4)) {
-
-                vinte.sacar(valor);
-                valor -= 20;
-                vinte.retiraDoValorTotalDasGavetas(gaveta);
-            }
-            while ((valor >= 10) && (dez.getDez() < 4)) {
-
-                dez.sacar(valor);
-                valor -= 10;
-                dez.retiraDoValorTotalDasGavetas(gaveta);
-            }
-            while ((valor >= 5) && (cinco.getCinc() < 4)) {
-
-                cinco.sacar(valor);
-                valor -= 5;
-                cinco.retiraDoValorTotalDasGavetas(gaveta);
-            }
-            while ((valor >= 2) && (dois.getDois() < 4)) {
-
-                dois.sacar(valor);
-                valor -= 2;
-                dois.retiraDoValorTotalDasGavetas(gaveta);
-            }
-
-//            System.out.println("\nSAQUE REALIZADO COM SUCESSO!");
-//            //System.out.println("RESTAM NAS GAVETAS " + gaveta.getValorTotalGavetas() + " REAIS");
-//            System.out.println("\nVOCÊ RECEBEU:");
-            if ((cem.getCem() <= 1) && cem.getContSaqCem() == 1) {
-                cem.printSingular();
-            } else if ((cem.getCem() > 1) && cem.getContSaqCem() != 0) {
-                cem.printPlural();
-            }
-            if ((cinquenta.getCinq() <= 1) && cinquenta.getContSaqCinq() == 1) {
-                cinquenta.printSingular();
-            } else if ((cinquenta.getCinq() > 1) && cinquenta.getContSaqCinq() != 0) {
-                cinquenta.printPlural();
-            }
-            if ((vinte.getVin() <= 1) && vinte.getContSaqVin() == 1) {
-                vinte.printSingular();
-            } else if ((vinte.getVin() > 1) && vinte.getContSaqVin() != 0) {
-                vinte.printPlural();
-            }
-            if ((dez.getDez() <= 1) && dez.getContSaqDez() == 1) {
-                dez.printSingular();
-            } else if ((dez.getDez() > 1) && dez.getContSaqDez() != 0) {
-                dez.printPlural();
-            }
-            if ((cinco.getCinc() <= 1) && cinco.getContSaqCinc() == 1) {
-                cinco.printSingular();
-            } else if ((cinco.getCinc() > 1) && cinco.getContSaqCinc() != 0) {
-                cinco.printPlural();
-            }
-            if ((dois.getDois() <= 1) && dois.getContSaqDois() == 1) {
-                dois.printSingular();
-            } else if ((dois.getDois() > 1) && dois.getContSaqDois() != 0) {
-                dois.printPlural();
-            }
+            contarNotas(valor);
+            imprimeRecibos();
 
             if (this.getSaldo() == 1) {
                 JOptionPane.showMessageDialog(null,
@@ -248,6 +163,74 @@ public class Conta {
                     "SALDO INSUFICIENTE!",
                     "BANCO MSA",
                     JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
+
+    private void contarNotas(int valor){
+
+        while ((valor >= 100) && (cem.getCem() < 4)) {
+            cem.sacar(valor);
+            valor -= 100;
+            cem.retiraDoValorTotalDasGavetas(gaveta);
+        }
+        while ((valor >= 50) && (cinquenta.getCinq() < 4)) {
+            cinquenta.sacar(valor);
+            valor -= 50;
+            cinquenta.retiraDoValorTotalDasGavetas(gaveta);
+        }
+        while ((valor >= 20) && (vinte.getVin() < 4)) {
+            vinte.sacar(valor);
+            valor -= 20;
+            vinte.retiraDoValorTotalDasGavetas(gaveta);
+        }
+        while ((valor >= 10) && (dez.getDez() < 4)) {
+            dez.sacar(valor);
+            valor -= 10;
+            dez.retiraDoValorTotalDasGavetas(gaveta);
+        }
+        while ((valor >= 5) && (cinco.getCinc() < 4)) {
+            cinco.sacar(valor);
+            valor -= 5;
+            cinco.retiraDoValorTotalDasGavetas(gaveta);
+        }
+        while ((valor >= 2) && (dois.getDois() < 4)) {
+            dois.sacar(valor);
+            valor -= 2;
+            dois.retiraDoValorTotalDasGavetas(gaveta);
+        }
+    }
+
+    public void imprimeRecibos(){
+        if ((cem.getCem() <= 1) && cem.getContSaqCem() == 1) {
+            cem.printSingular();
+        } else if ((cem.getCem() > 1) && cem.getContSaqCem() != 0) {
+            cem.printPlural();
+        }
+        if ((cinquenta.getCinq() <= 1) && cinquenta.getContSaqCinq() == 1) {
+            cinquenta.printSingular();
+        } else if ((cinquenta.getCinq() > 1) && cinquenta.getContSaqCinq() != 0) {
+            cinquenta.printPlural();
+        }
+        if ((vinte.getVin() <= 1) && vinte.getContSaqVin() == 1) {
+            vinte.printSingular();
+        } else if ((vinte.getVin() > 1) && vinte.getContSaqVin() != 0) {
+            vinte.printPlural();
+        }
+        if ((dez.getDez() <= 1) && dez.getContSaqDez() == 1) {
+            dez.printSingular();
+        } else if ((dez.getDez() > 1) && dez.getContSaqDez() != 0) {
+            dez.printPlural();
+        }
+        if ((cinco.getCinc() <= 1) && cinco.getContSaqCinc() == 1) {
+            cinco.printSingular();
+        } else if ((cinco.getCinc() > 1) && cinco.getContSaqCinc() != 0) {
+            cinco.printPlural();
+        }
+        if ((dois.getDois() <= 1) && dois.getContSaqDois() == 1) {
+            dois.printSingular();
+        } else if ((dois.getDois() > 1) && dois.getContSaqDois() != 0) {
+            dois.printPlural();
         }
 
     }

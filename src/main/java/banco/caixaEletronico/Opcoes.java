@@ -3,13 +3,10 @@ package banco.caixaEletronico;
 import banco.Conta;
 
 import javax.swing.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Opcoes {
     private int opcao;
     private int valor;
-    Conta conta = new Conta();
 
     public void operacoes(Conta conta) {
         try {
@@ -26,23 +23,16 @@ public class Opcoes {
 
             while (opcao != 4) {
                 switch (opcao) {
-                    case 1:
-                        JOptionPane.showMessageDialog(null,
-                                String.format("SEU SALDO ATUAL É DE R$%.2f", conta.getSaldo()),
-                                "BANCO MSA",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    case 2:
-                        conta.depositar(valor);
-                        break;
-                    case 3:
-                        opcoesDeSaque(conta);
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null,
-                                "OPÇÃO INVÁLIDA!",
-                                "ERRO!",
-                                JOptionPane.ERROR_MESSAGE);
+                    case 1 -> JOptionPane.showMessageDialog(null,
+                            String.format("SEU SALDO ATUAL É DE R$%.2f", conta.getSaldo()),
+                            "BANCO MSA",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    case 2 -> conta.depositar(valor);
+                    case 3 -> opcoesDeSaque(conta);
+                    default -> JOptionPane.showMessageDialog(null,
+                            "OPÇÃO INVÁLIDA!",
+                            "ERRO!",
+                            JOptionPane.ERROR_MESSAGE);
                 }
 
                 opcao = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -69,18 +59,6 @@ public class Opcoes {
         }
     }
 
-    public void setOpcao(int opcao) {
-        this.opcao = opcao;
-    }
-
-    private void telaInicial() {
-        try {
-            this.setOpcao(new Scanner(System.in).nextInt());
-        } catch (InputMismatchException e) {
-        }
-
-    }
-
     private void opcoesDeSaque(Conta conta) {
 
         try {
@@ -96,47 +74,34 @@ public class Opcoes {
                     "BANCO MSA",
                     JOptionPane.INFORMATION_MESSAGE));
 
-            switch (escolha) {// = new Scanner(System.in).nextInt()) {
-                case 1:
+            switch (escolha) {
+                case 1 -> {
                     valor = 10;
                     conta.sacar(valor);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     valor = 20;
                     conta.sacar(valor);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     valor = 50;
                     conta.sacar(valor);
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     valor = 100;
                     conta.sacar(valor);
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     valor = Integer.parseInt(JOptionPane.showInputDialog(null,
                             "DIGITE O VALOR DO SAQUE",
                             "BANCO MSA",
                             JOptionPane.INFORMATION_MESSAGE));
                     conta.sacar(valor);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null,
-                            "OPÇÃO INVÁLIDA!",
-                            "BANCO MSA",
-                            JOptionPane.ERROR_MESSAGE);
-
-                    escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
-                            """
-                                    ESCOLHA UMA OPÇÃO DE SAQUE:                
-                                    1 - R$10,00
-                                    2 - R$20,00
-                                    3 - R$50,00
-                                    4 - R$100,00
-                                    5 - OUTRO VALOR 
-                                    """,
-                            "BANCO MSA",
-                            JOptionPane.INFORMATION_MESSAGE));
+                }
+                default -> JOptionPane.showMessageDialog(null,
+                        "OPÇÃO INVÁLIDA!",
+                        "BANCO MSA",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException n) {
             JOptionPane.showMessageDialog(null,
