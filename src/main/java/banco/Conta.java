@@ -26,6 +26,8 @@ public class Conta {
         return titular;
     }
 
+    public void setTitular(String titular) { this.titular = titular; }
+
     public String getTipo() {
         return tipo;
     }
@@ -42,6 +44,20 @@ public class Conta {
         this.saldo = saldo;
     }
 
+    public boolean validarTitularConta(String titularConta) {
+        if(titularConta == null || titularConta.isEmpty() || titularConta.isBlank()) {
+            return false;
+        }
+
+        if(titularConta.length() > 30) {
+            return false;
+        }
+
+        setTitular(titularConta);
+
+        return true;
+    }
+
     public void abrirConta() {
         if (this.getTipo().equals("cc")) {
             this.setTipo("Conta Corrente".toUpperCase());
@@ -53,15 +69,6 @@ public class Conta {
     }
 
     public void boasVindas() {
-        showMessageDialog(null,
-                "DIGITE SEUS DADOS PARA ABERTURA DE CONTA",
-                " SEJA BEM-VINDO(A) AO BANCO MSA ",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        this.titular = JOptionPane.showInputDialog(null,
-                "TITULAR DA CONTA: ",
-                "BANCO MSA",
-                JOptionPane.INFORMATION_MESSAGE);
 
         try {
             while (this.getTitular().length() > 30) {
